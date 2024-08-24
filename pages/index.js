@@ -34,7 +34,7 @@ export default function Home() {
   const egArray = [];
   const MAX_HISTORY_LENGTH = 4; // 设置最大历史会话数目
 
-  const [exportedFilename, setExportedFilename] = useState('文件名'); // 添加状态来存储文件名
+  const [exportedFilename, setExportedFilename] = useState('作品名字'); // 添加状态来存储文件名
 
   // 处理文件名变化
   const handleFilenameChange = (newFilename) => {
@@ -266,7 +266,8 @@ export default function Home() {
       console.log("requestOption  ", requestOption);
       if (response.ok) {
         const data = await response.json();
-        console.log('作品分享成功:', data);
+        alert("作品分享成功!");
+       // console.log('作品分享成功:', data);
         // 可以在这里添加成功提示，例如弹窗或跳转到作品页面
       } else {
         console.error('作品分享失败:', response.status);

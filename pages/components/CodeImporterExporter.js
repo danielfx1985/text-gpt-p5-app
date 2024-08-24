@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { saveAs } from 'file-saver';
 
 const CodeImporterExporter = ({ conversationHistory, result, textInput, setConversationHistory, setResult, setTextInput, filename, onFilenameChange }) => {
-  const [fileName, setFileName] = useState('文件名'); // 默认文件名，不包括后缀
+  const [fileName, setFileName] = useState('作品名字'); // 默认文件名，不包括后缀
 
 
   // 导出代码为 JSON 文件
@@ -33,7 +33,7 @@ const CodeImporterExporter = ({ conversationHistory, result, textInput, setConve
   };
 
   const handleFocus = () => {
-    if (fileName === '文件名') {
+    if (fileName === '作品名字') {
       setFileName(''); // 清空输入框
     }
   };
@@ -53,7 +53,7 @@ const CodeImporterExporter = ({ conversationHistory, result, textInput, setConve
             onFilenameChange(newFilename); // 调用回调函数通知父组件
           }
         }}
-        placeholder="输入文件名"
+        placeholder="输入作品名"
 
         className="p-1 border rounded"
       />

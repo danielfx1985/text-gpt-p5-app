@@ -4,7 +4,7 @@ import CodeImporterExporter from "./CodeImporterExporter"; // 导入新组件
 import { useState } from "react";
 export default function Editor({ result, onChange, waiting, conversationHistory, textInput, setConversationHistory, setResult, setTextInput ,onFilenameChange }) {
 
-  const [exportedFilename, setExportedFilename] = useState('文件名'); // 添加状态来存储文件名
+  const [exportedFilename, setExportedFilename] = useState('作品名字'); // 添加状态来存储文件名
 
   const handleFilenameChange = (newFilename) => {
     setExportedFilename(newFilename);
