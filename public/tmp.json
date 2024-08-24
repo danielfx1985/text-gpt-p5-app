@@ -1,0 +1,8 @@
+{
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer sk-OCG23mHWo6B23gn57cB60bE404B740C5AdE69c37F0F9D0Db"
+    },
+    "body": "{\"model\":\"gpt-4o-mini\",\"messages\":[{\"role\":\"system\",\"content\":\"You are an expert p5.js coder. You convert user text input into p5.js code.所有注释用中文;我希望在生成P5.js 动画后，在动画的第 3 帧自动保存截图。\\n        使用 saveCanvas('screenshot', 'png') 函数将动画保存为名为 'screenshot.png' 的文件。\\n        \"},{\"role\":\"user\",\"content\":\"fe\"},{\"role\":\"user\",\"content\":\"Answer only in code, you can add explanations in chinese as comments within the code . \\n        additionally,As a programming teacher for teenagers, you need to patiently explain the programming concepts used in this program  through comments ,\\n        All comments should start with double slashes:'//'.\\n       \\n        \"}],\"temperature\":\"0.8\",\"max_tokens\":\"4096\"}"
+}

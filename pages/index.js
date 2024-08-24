@@ -110,8 +110,8 @@ export default function Home() {
       body: JSON.stringify({
         "model": MODEL,
         "messages": messages,
-        "temperature": temperature,
-        "max_tokens": max_tokens
+        "temperature":Number(temperature) ,
+        "max_tokens": Number(max_tokens)
       })
     }
     console.log("MODEL ", MODEL);
