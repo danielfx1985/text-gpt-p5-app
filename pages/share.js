@@ -27,8 +27,11 @@ export default function Share() {
 
   // 删除作品
   const handleDelete = async (id) => {
-    const confirmDelete = confirm("确定要删除这件作品吗？");
-    if (!confirmDelete) return;
+    const password = prompt("请输入密码以确认删除：");
+    if (password !== "45855450") {
+      alert("密码错误，无法删除作品。");
+      return;
+    }
 
     try {
       const response = await fetch(`/api/works?id=${id}`, {
