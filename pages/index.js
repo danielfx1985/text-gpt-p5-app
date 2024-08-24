@@ -44,13 +44,22 @@ export default function Home() {
     let ranOnce = false;
 
     const handler = event => {
-      const data = JSON.parse(event.data);
-      if (!ranOnce) {
-        setlogMsg(data.logMsg);
-        ranOnce = true;
-      } else {
-        setlogMsg(msg => msg + '\n' + data.logMsg);
+      if (event.data) {
+        try {
+          const data = JSON.parse(event.data);
+          if (!ranOnce) {
+            setlogMsg(data.logMsg);
+            ranOnce = true;
+          } else {
+            setlogMsg(msg => msg + '\n' + data.logMsg);
+          }
+           
+        } catch (error) {
+          console.error("解析 JSON 数据出错:", error);
+        }
       }
+      //const data = JSON.parse(event.data);
+      
     };
 
     window.addEventListener("message", handler);
@@ -144,7 +153,7 @@ export default function Home() {
       })
     }
     //console.log("MODEL ", MODEL);
-   // console.log("requetOption :", requetOption);
+   //console.log("requetOption :", requetOption);
     try {
       const response = await fetch('https://openai.snakecoding.club/v1/chat/completions', requetOption);
 
@@ -263,7 +272,7 @@ export default function Home() {
         }),
       };
       const response = await fetch('/api/works/', requestOption);
-     // console.log("requestOption  ", requestOption);
+     //console.log("requestOption  ", requestOption);
       if (response.ok) {
         const data = await response.json();
         alert("作品分享成功!");

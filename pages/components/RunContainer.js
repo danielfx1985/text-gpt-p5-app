@@ -22,7 +22,7 @@ export default function RunContainer({ sandboxRunning, clickPlay, clickStop, res
     
             if (data.type === 'screenshot') {
                 setScreenshotDataURL(data.dataURL);
-                console.log("ScreenshotDataURL from RunContainer:", data.dataURL);
+                //console.log("ScreenshotDataURL from RunContainer:", data.dataURL);
                 // 调用回调函数，当截图准备好时
                 onScreenshotReady && onScreenshotReady(data.dataURL);
             } else if (data.logMsg) {
