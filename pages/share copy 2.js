@@ -2,7 +2,6 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import Link from 'next/link'; // 引入 Link 组件
-
 export default function Share() {
   const [works, setWorks] = useState([]);
 
@@ -25,28 +24,6 @@ export default function Share() {
     fetchWorks();
   }, []);
 
-  // 删除作品
-  const handleDelete = async (id) => {
-    const confirmDelete = confirm("确定要删除这件作品吗？");
-    if (!confirmDelete) return;
-
-    try {
-      const response = await fetch(`/api/works?id=${id}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      // 更新作品列表
-      setWorks(works.filter(work => work.id !== id));
-    } catch (error) {
-      console.error("删除作品失败:", error);
-      // 可以在这里处理错误，例如显示错误信息给用户
-    }
-  };
-
   return (
     <>
       <Head>
@@ -60,7 +37,7 @@ export default function Share() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {works.length > 0 ? (
             works.map((work) => (
-              <WorkCard key={work.id} work={work} onDelete={handleDelete} />
+              <WorkCard key={work.id} work={work} />
             ))
           ) : (
             <p>加载中...</p>
@@ -72,9 +49,9 @@ export default function Share() {
 }
 
 // 作品卡片组件
-const WorkCard = ({ work, onDelete }) => {
+const WorkCard = ({ work }) => {
   return (
-    <div className="border rounded-md p-4 shadow-md relative">
+    <div className="border rounded-md p-4 shadow-md">
       <img
         src={work.screenshot}
         alt={work.title}
@@ -85,13 +62,8 @@ const WorkCard = ({ work, onDelete }) => {
       <a href={`/works/${work.id}`} className="text-blue-500 hover:underline">
         查看作品{work.id}
       </a>
-      <button
-        onClick={() => onDelete(work.id)}
-        className="absolute top-2 right-2 text-red-500 hover:text-red-700"
-        aria-label="删除作品"
-      >
-        &times; {/* 使用 × 符号作为删除图标 */}
-      </button>
     </div>
   );
 };
+
+ 
