@@ -235,7 +235,7 @@ export default function Home() {
       // 这里可以将 dataURL 保存到状态，或者进行其他操作
       setScreenshotDataURL(dataURL);
     };
-  // 分享作品
+  // 分享作品 
   const shareWork = async () => {
     console.log("shareWork button pushed");
     if (author.trim() === '') { // 检查作者姓名是否为空
