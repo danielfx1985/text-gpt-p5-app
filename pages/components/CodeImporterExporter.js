@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { saveAs } from 'file-saver';
 
-const CodeImporterExporter = ({ conversationHistory, result, textInput, setConversationHistory, setResult, setTextInput }) => {
+const CodeImporterExporter = ({ conversationHistory, result, textInput, setConversationHistory, setResult, setTextInput ，filename }) => {
   const [fileName, setFileName] = useState('文件名'); // 默认文件名，不包括后缀
 
   // 导出代码为 JSON 文件
