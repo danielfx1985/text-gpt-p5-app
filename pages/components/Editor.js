@@ -10,7 +10,7 @@ export default function Editor({ result, onChange, waiting, conversationHistory,
     setExportedFilename(newFilename);
     // 将新的文件名传递给 onFilenameChange 回调函数
     onFilenameChange(newFilename); 
-    console.log("新的文件名：", newFilename); 
+  //  console.log("新的文件名：", newFilename); 
   };
 
   return (

@@ -18,7 +18,7 @@ const CodeImporterExporter = ({ conversationHistory, result, textInput, setConve
 
   // 导入代码
   const importCode = (event) => {
-    console.log(event.target);
+   // console.log(event.target);
     const file = event.target.files[0];
     if (!file) return;
 
@@ -47,7 +47,7 @@ const CodeImporterExporter = ({ conversationHistory, result, textInput, setConve
         // onChange={(e) => setFileName(e.target.value)} 
         onChange={(e) => {
           const newFilename = e.target.value;
-          console.log("newFilename:",newFilename);
+          //console.log("newFilename:",newFilename);
           setFileName(newFilename); // 更新组件内部状态
           if (onFilenameChange) {
             onFilenameChange(newFilename); // 调用回调函数通知父组件

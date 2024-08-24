@@ -16,7 +16,7 @@ const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 const api_url = process.env.NEXT_PUBLIC_API_URL;
 const temperature = process.env.NEXT_PUBLIC_TEMPERATURE;
 const max_tokens = process.env.NEXT_PUBLIC_MAX_TOKENS;
-console.log("api_url ", api_url);
+//console.log("api_url ", api_url);
 export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false); // 定义状态
   const [result, setResult] = useState("// 请在上面指令区输入你的指令，然后点“提交”");
@@ -155,7 +155,7 @@ export default function Home() {
       const result = data.choices[0].message.content;
       const cleanedResult = result.replace(/```javascript|```/g, '').trim();
 
-      console.log("提交按钮2:", isSubmitting);
+     // console.log("提交按钮2:", isSubmitting);
 
 
 
@@ -233,20 +233,20 @@ export default function Home() {
 
   // 定义回调函数，用于接收来自 RunContainer 的 dataURL
   const handleScreenshotReady = (dataURL) => {
-    console.log('Screenshot ready in Index.js:', dataURL);
+    //console.log('Screenshot ready in Index.js:', dataURL);
 
     // 这里可以将 dataURL 保存到状态，或者进行其他操作
     setScreenshotDataURL(dataURL);
   };
   // 分享作品 
   const shareWork = async () => {
-    console.log("shareWork button pushed");
+   // console.log("shareWork button pushed");
     if (author.trim() === '') { // 检查作者姓名是否为空
-      console.log("输入分享作者的名字！");
+    //  console.log("输入分享作者的名字！");
       setShowError(true);
       return;
     }
-    console.log('screenshotDataURL===:', screenshotDataURL);
+   // console.log('screenshotDataURL===:', screenshotDataURL);
     try {
 
 
@@ -263,7 +263,7 @@ export default function Home() {
         }),
       };
       const response = await fetch('/api/works/', requestOption);
-      console.log("requestOption  ", requestOption);
+     // console.log("requestOption  ", requestOption);
       if (response.ok) {
         const data = await response.json();
         alert("作品分享成功!");
@@ -281,7 +281,7 @@ export default function Home() {
   // New function to start a new topic
   function startNewTopic(event) {
     event.preventDefault(); // 阻止默认行为
-    console.log("新想法按钮");
+   // console.log("新想法按钮");
     setConversationHistory([]); // Clear conversation history
     setTextInput(""); // Clear text input
     setResult("// 请在上面指令区输入你的指令，然后点“提交”"); // Reset result

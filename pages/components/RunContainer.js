@@ -11,7 +11,7 @@ export default function RunContainer({ sandboxRunning, clickPlay, clickStop, res
     };
 
     const handler = (event) => {
-        console.log("handler:", event.data);
+       // console.log("handler:", event.data);
         
         // 确保只处理来自特定源的消息
       //  if (event.origin !== "http://localhost:3000") { console.log("Ignored message from:", event.origin);return;}
