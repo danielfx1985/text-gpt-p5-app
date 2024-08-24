@@ -1,7 +1,18 @@
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import CodeImporterExporter from "./CodeImporterExporter"; // 导入新组件
-export default function Editor({ result, onChange, waiting, conversationHistory, textInput, setConversationHistory, setResult, setTextInput }) {
+import { useState } from "react";
+export default function Editor({ result, onChange, waiting, conversationHistory, textInput, setConversationHistory, setResult, setTextInput ,onFilenameChange }) {
+
+  const [exportedFilename, setExportedFilename] = useState('文件名'); // 添加状态来存储文件名
+
+  const handleFilenameChange = (newFilename) => {
+    setExportedFilename(newFilename);
+    // 将新的文件名传递给 onFilenameChange 回调函数
+    onFilenameChange(newFilename); 
+    console.log("新的文件名：", newFilename); 
+  };
+
   return (
     <div className="max-h-[25vh] overflow-scroll rounded-md border border-gray-100 shadow-md shadow-emerald-600/30 bg-white p-3" style={{ minHeight: "550px" }}>
       <div className="flex justify-between items-center mb-2"> {/* 使用 Flexbox 布局 */}
@@ -14,6 +25,8 @@ export default function Editor({ result, onChange, waiting, conversationHistory,
             setConversationHistory={setConversationHistory}
             setResult={setResult}
             setTextInput={setTextInput}
+            onFilenameChange={handleFilenameChange} // 传递回调函数
+
           />
         </div>
       </div>

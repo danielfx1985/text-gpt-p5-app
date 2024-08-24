@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from 'next/link'; // 引入 Link 组件
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import TextInput from "./components/TextInput";
 import Editor from "./components/Editor";
 import RunContainer from "./components/RunContainer";
@@ -34,9 +34,12 @@ export default function Home() {
   const egArray = [];
   const MAX_HISTORY_LENGTH = 4; // 设置最大历史会话数目
 
+  const [exportedFilename, setExportedFilename] = useState('文件名'); // 添加状态来存储文件名
 
-
-
+  // 处理文件名变化
+  const handleFilenameChange = (newFilename) => {
+    setExportedFilename(newFilename);
+  };
   useEffect(() => {
     let ranOnce = false;
 
@@ -136,12 +139,12 @@ export default function Home() {
       body: JSON.stringify({
         "model": MODEL,
         "messages": messages,
-        "temperature":Number(temperature) ,
+        "temperature": Number(temperature),
         "max_tokens": Number(max_tokens)
       })
     }
-    console.log("MODEL ", MODEL);
-    console.log("requetOption :", requetOption);
+    //console.log("MODEL ", MODEL);
+   // console.log("requetOption :", requetOption);
     try {
       const response = await fetch('https://openai.snakecoding.club/v1/chat/completions', requetOption);
 
@@ -228,13 +231,13 @@ export default function Home() {
   };
 
 
-    // 定义回调函数，用于接收来自 RunContainer 的 dataURL
-    const handleScreenshotReady = (dataURL) => {
-      console.log('Screenshot ready in Index.js:', dataURL); 
-  
-      // 这里可以将 dataURL 保存到状态，或者进行其他操作
-      setScreenshotDataURL(dataURL);
-    };
+  // 定义回调函数，用于接收来自 RunContainer 的 dataURL
+  const handleScreenshotReady = (dataURL) => {
+    console.log('Screenshot ready in Index.js:', dataURL);
+
+    // 这里可以将 dataURL 保存到状态，或者进行其他操作
+    setScreenshotDataURL(dataURL);
+  };
   // 分享作品 
   const shareWork = async () => {
     console.log("shareWork button pushed");
@@ -243,9 +246,9 @@ export default function Home() {
       setShowError(true);
       return;
     }
-    console.log('screenshotDataURL===:',screenshotDataURL);
+    console.log('screenshotDataURL===:', screenshotDataURL);
     try {
-       
+
 
       const requestOption = {
         method: 'POST',
@@ -255,7 +258,7 @@ export default function Home() {
         body: JSON.stringify({
           code: result,
           screenshot: screenshotDataURL,
-          title: textInput,
+          title: exportedFilename,
           author: author,
         }),
       };
@@ -364,6 +367,7 @@ export default function Home() {
               setConversationHistory={setConversationHistory}
               setResult={setResult}
               setTextInput={setTextInput}
+              onFilenameChange={handleFilenameChange} // 传递回调函数给 Editor 组件
             />
 
 
@@ -380,7 +384,7 @@ export default function Home() {
               logMsg={logMsg}
               waiting={waiting}
               onScreenshotReady={handleScreenshotReady} // 传递回调函数
-             
+
             />
 
           </div>
