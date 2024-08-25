@@ -306,7 +306,7 @@ export default function Home() {
         <meta name="description" content="Turn text into p5.js code using GPT and display it" />
         <link rel="icon" href="/AI-aigr.svg" />
       </Head>
-      <div className="w-full p-5 flex flex-col gap-5 min-w-[320px] relative"> 
+      <div className="w-full p-5 flex flex-col gap-5 min-w-[320px] relative "> 
         <header className="flex flex-col sm:flex-row justify-between items-center">
           <div className="flex items-center gap-3">
             <img src="logo-ai.png" alt="logo" className="h-16 w-16 p-1 bg-white rounded-full shadow shadow-emerald-600/30" />
@@ -339,8 +339,8 @@ export default function Home() {
             </div>
           </div>
         </header>
-        <div className="flex flex-col md:flex-row gap-4 w-full"> 
-          <div className="md:order-2 md:w-1/2 lg:w-2/3 flex flex-col gap-4">
+        <div className="flex flex-col md:flex-row gap-4 w-full "> 
+          <div className="md:order-2 md:w-1/2 lg:w-1/3 flex flex-col gap-4 ">
             <RunContainer
               key="runcont-01"
               sandboxRunning={sandboxRunning}
@@ -352,7 +352,7 @@ export default function Home() {
               onScreenshotReady={handleScreenshotReady}
             />
           </div>
-          <div className="md:order-1 md:w-1/2 lg:w-1/3 flex flex-col gap-4">
+          <div className="md:order-1 md:w-1/2 lg:w-1/2 flex flex-col gap-4">
             <TextInput
               key="textinput-01"
               textInput={textInput}
