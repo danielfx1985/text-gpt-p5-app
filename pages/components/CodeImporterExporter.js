@@ -38,7 +38,7 @@ const CodeImporterExporter = ({ conversationHistory, result, textInput, setConve
     }
   };
 
-  return (
+  return ( <>
     <div className="flex items-center space-x-2"> {/* 使用 Flexbox 布局 */}
       <input
         type="text"
@@ -73,7 +73,18 @@ const CodeImporterExporter = ({ conversationHistory, result, textInput, setConve
         />
         <span className="w-32 p-2 bg-blue-500 text-white rounded cursor-pointer text-center">导入</span> {/* 增加 padding 和 text-center */}
       </label>
-    </div>
+    </div> 
+    <style jsx>{`
+      /* ... 其他样式 ... */
+
+      @media (max-width: 1533px) { 
+        /* 在小屏幕上应用以下样式 */
+        div {
+          font-size: 12px; /* 调整 TextInput 组件内部的字体大小 */
+        }
+      }
+    `}</style>
+    </>
   );
 };
 

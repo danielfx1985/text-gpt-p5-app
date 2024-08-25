@@ -298,7 +298,6 @@ export default function Home() {
     setSandboxRunning(false); // Stop sandbox if running
   }
 
-  
   return (
     <>
       <Head>
@@ -306,19 +305,39 @@ export default function Home() {
         <meta name="description" content="Turn text into p5.js code using GPT and display it" />
         <link rel="icon" href="/AI-aigr.svg" />
       </Head>
-      <div className="w-full p-5 flex flex-col gap-5 min-w-[320px] relative"> 
-        <header className="flex flex-col sm:flex-row justify-between items-center">
-          <div className="flex items-center gap-3">
-            <img src="logo-ai.png" alt="logo" className="h-16 w-16 p-1 bg-white rounded-full shadow shadow-emerald-600/30" />
-            <div className="text-gray-700 flex flex-col justify-center">
-              <h1 className="logo-title font-semibold text-xl">斯内克 AI 创意编程</h1>
-              <p className="logo-subtitle">体验AI的力量 - AI generation</p>
+      <div className="w-full p-5 flex flex-col gap-5 max-w-2xl min-w-[320px] relative 2xl:max-w-7xl">
+        <header className="flex gap-3 justify-between">
+          <div className="flex gap-3">
+            <img src="logo-ai.png" alt="logo" className="h-16 w-16 p-1 bg-white rounded-full shadow shadow-emerald-600/30 overflow-visible" />
+            <div className="text-gray-700 flex flex-col justify-center h-full">
+              <h1 className="logo-title font-semibold text-xl ">
+                斯内克 AI 创意编程
+              </h1>
+              <p className="logo-subtitle" >体验AI的力量 - AI generation</p>
             </div>
           </div>
-          <div className="flex flex-col sm:flex-row items-center gap-4 mt-4 sm:mt-0">
+          <div className="flex flex-col gap-4 xs:flex-row xs:gap-3">
+            <div className="flex items-center xs:order-last">
+              <a href="https://github.com/mattelim/text-gpt-p5-app" target="_blank" className="mr-3 opacity-30 hover:opacity-100">
+                <img src="github-mark.svg" alt="github" className="w-8 aspect-square xs:w-6" />
+              </a>
+              <a href="https://www.buymeacoffee.com/mattelim" target="_blank" className="opacity-30 hover:opacity-100">
+                <img src="bmc-logo.svg" alt="buy me a coffee" className="w-8 aspect-square xs:w-6" />
+              </a>
+            </div>
+
             <Link href="/share" className="zplb px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-              作品列表
-            </Link>
+              作品列表</Link>
+
+            <div className="flex flex-col items-start xs:flex-row xs:items-center">
+              <button onClick={shareWork} disabled={!result || author.trim() === ''} className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50">
+                分享作品
+              </button>
+              {showError && (
+                <p className="text-red-500 text-sm mt-2 xs:mt-0 xs:ml-2">请输入你的名字</p>
+              )}
+            </div>
+
             <div className="flex items-center">
               <label htmlFor="author" className="mr-2">你的名字:</label>
               <input
@@ -329,18 +348,43 @@ export default function Home() {
                 className="border border-gray-300 rounded-md px-2 py-1"
               />
             </div>
-            <div className="flex items-center">
-              <button onClick={shareWork} disabled={!result || author.trim() === ''} className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50">
-                分享作品
-              </button>
-              {showError && (
-                <p className="text-red-500 text-sm mt-2 xs:mt-0 xs:ml-2">请输入你的名字</p>
-              )}
-            </div>
           </div>
+
         </header>
-        <div className="flex flex-col md:flex-row gap-4 w-full"> 
-          <div className="md:order-2 md:w-1/2 lg:w-2/3 flex flex-col gap-4">
+        <div className="flex flex-col gap-4 2xl:flex-row w-full">
+          <div className="flex flex-col gap-4 2xl:w-1/2">
+            <TextInput
+              key="textinput-01"
+              textInput={textInput}
+              onChange={textInputChange}
+
+              waiting={waiting}
+              selectVal={selVal}
+              selectChange={textSelectChange}
+              egArray={egArray}
+              textInputSubmit={textInputSubmit}
+              startNewTopic={startNewTopic}
+            />
+            {/* TODO 需要加个撤回上一步按钮，当更新的命令没有实现或有错误可以重新下命令生成。 */}
+            <Editor
+              key="editor-01"
+              result={result}
+              onChange={editorChange}
+              waiting={waiting}
+              conversationHistory={conversationHistory}
+
+              textInput={textInput}
+              setConversationHistory={setConversationHistory}
+              setResult={setResult}
+              setTextInput={setTextInput}
+              onFilenameChange={handleFilenameChange} // 传递回调函数给 Editor 组件
+            />
+
+
+
+          </div>
+
+          <div className="flex flex-col gap-4 2xl:w-1/2">
             <RunContainer
               key="runcont-01"
               sandboxRunning={sandboxRunning}
@@ -349,62 +393,18 @@ export default function Home() {
               result={result}
               logMsg={logMsg}
               waiting={waiting}
-              onScreenshotReady={handleScreenshotReady}
+              onScreenshotReady={handleScreenshotReady} // 传递回调函数
+
             />
-          </div>
-          <div className="md:order-1 md:w-1/2 lg:w-1/3 flex flex-col gap-4">
-            <TextInput
-              key="textinput-01"
-              textInput={textInput}
-              onChange={textInputChange}
-              waiting={waiting}
-              selectVal={selVal}
-              selectChange={textSelectChange}
-              egArray={egArray}
-              textInputSubmit={textInputSubmit}
-              startNewTopic={startNewTopic}
-            />
-            <Editor
-              key="editor-01"
-              result={result}
-              onChange={editorChange}
-              waiting={waiting}
-              conversationHistory={conversationHistory}
-              textInput={textInput}
-              setConversationHistory={setConversationHistory}
-              setResult={setResult}
-              setTextInput={setTextInput}
-              onFilenameChange={handleFilenameChange}
-            />
+
           </div>
         </div>
-        <p className="text-gray-400 text-sm text-center mt-3">
-          Made by <a href="https://mattelim.com" target="_blank" className="underline">Matte Lim</a>/ Modified by <a href="https://snakecoding.club" target="_blank" className="underline">Daniel</a> / AI model : {MODEL}
-        </p>
-      </div>
 
-      <style jsx>{`
-        /* 在屏幕宽度小于 1533px 时应用以下样式 */
-        @media (max-width: 1533px) { 
-        
-          .md\:w-1\/2 {
-            width: 100% !important; /* 在小屏幕上，两个主要组件各占 100% 宽度 */
-          }
-          .lg\:w-2\/3 {
-            width: 100% !important;
-          }
-          .lg\:w-1\/3 {
-            width: 100% !important;
-          }
-              /* 添加以下样式来调整字体大小 */
-    body {
-      font-size: 12px; /* 设置默认字体大小 */
-    }
-    h1, h2, h3, h4, h5, h6 {
-      font-size: 0.2em; /* 调整标题字体大小 */
-    }
-        }
-      `}</style>
+        <p className="text-gray-400 text-sm text-center mt-3">
+          Made by <a href="https://mattelim.com" target="_blank" className="underline">Matte Lim</a>/  Modified by <a href="https://snakecoding.club" target="_blank" className="underline">Daniel</a> / AI model : {MODEL}
+        </p>
+
+      </div>
     </>
   );
 }
