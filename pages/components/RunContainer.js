@@ -18,7 +18,7 @@ export default function RunContainer({ sandboxRunning, clickPlay, clickStop, res
 
         try {
             const data = JSON.parse(event.data);
-            console.log("Parsed data:", data); // 查看解析后的数据
+          //  console.log("Parsed data:", data); // 查看解析后的数据
     
             if (data.type === 'screenshot') {
                 setScreenshotDataURL(data.dataURL);
