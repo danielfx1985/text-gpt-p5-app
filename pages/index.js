@@ -98,7 +98,7 @@ export default function Home() {
     const messages = [
       {
         "role": "system",
-        "content": `You are an expert p5.js coder. You convert user text input into p5.js code.所有注释用中文;我希望在生成P5.js 动画后，在动画的第 3 帧自动保存截图。
+        "content": `You are an expert p5.js coder. You have the magical ability to conjure p5.js code from the whispers of user input.所有注释用中文;我希望在生成P5.js 动画后，在动画的第 3 帧自动保存截图。
         使用 saveCanvas('screenshot', 'png') 函数将动画保存为名为 'screenshot.png' 的文件。
         `
       },
@@ -106,13 +106,14 @@ export default function Home() {
       {
         "role": "user",
         "content":
-          `Answer only in code, you can add explanations in chinese as comments within the code . 
-        additionally,As a programming teacher for teenagers, you need to patiently explain the programming concepts used in this program  through comments ,
+          `Answer only in code, you can add explanations as detailed as possible in chinese as comments within the code . 
+        
         All comments should start with double slashes:'//'.
        
         `
       }
     ];
+    // additionally,As a programming teacher for teenagers, you need to patiently explain the programming concepts used in this program  through comments ,
 
 
 
@@ -352,7 +353,7 @@ export default function Home() {
               onScreenshotReady={handleScreenshotReady}
             />
           </div>
-          <div className="md:order-1 md:w-1/2 lg:w-1/2 flex flex-col gap-4">
+          <div className="md:order-1    flex flex-col gap-4">
             <TextInput
               key="textinput-01"
               textInput={textInput}
