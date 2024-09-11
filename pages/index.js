@@ -32,7 +32,7 @@ export default function Home() {
 
 
   const egArray = [];
-  const MAX_HISTORY_LENGTH = 4; // 设置最大历史会话数目
+  const MAX_HISTORY_LENGTH = 8; // 设置最大历史会话数目
 
   const [exportedFilename, setExportedFilename] = useState('作品名字'); // 添加状态来存储文件名
 
@@ -96,9 +96,15 @@ export default function Home() {
     setConversationHistory(newConversation);
 
     const messages = [
+      // {
+      //   "role": "system",
+      //   "content": `You are an expert p5.js coder. You have the magical ability to conjure p5.js code from the whispers of user input.所有注释用中文;我希望在生成P5.js 动画后，在动画的第 3 帧自动保存截图。
+      //   使用 saveCanvas('screenshot', 'png') 函数将动画保存为名为 'screenshot.png' 的文件。
+      //   `
+      // },
       {
         "role": "system",
-        "content": `You are an expert p5.js coder. You have the magical ability to conjure p5.js code from the whispers of user input.所有注释用中文;我希望在生成P5.js 动画后，在动画的第 3 帧自动保存截图。
+        "content": `你是一个P5.JS创意编程教学专家，在我给你指令，你总是用P5.js代码来回答，对所有代码进行详细注释.所有注释用中文;我希望在生成P5.js 动画后，在动画的第 3 帧自动保存截图。
         使用 saveCanvas('screenshot', 'png') 函数将动画保存为名为 'screenshot.png' 的文件。
         `
       },
@@ -106,9 +112,8 @@ export default function Home() {
       {
         "role": "user",
         "content":
-          `Answer only in code, you can add explanations as detailed as possible in chinese as comments within the code . 
-        
-        All comments should start with double slashes:'//'.
+          `确保只用P5.js代码来回答我的问题，并保证代码可以直接运行，画布大小为600px*600px;代码中不要引用图片等文件,所有你的文字回答前面都要加//注释符号，以不影响代码运行，当我提出问题时，你需要反问我一些问题来明确我的
+          要求，然后再给出准确 的代码，如果要求没有明确将不给出p5.js代码。
        
         `
       }
@@ -353,7 +358,7 @@ export default function Home() {
               onScreenshotReady={handleScreenshotReady}
             />
           </div>
-          <div className="md:order-1    flex flex-col gap-4">
+          <div className="md:order-1  left-content  flex flex-col gap-4">
             <TextInput
               key="textinput-01"
               textInput={textInput}
