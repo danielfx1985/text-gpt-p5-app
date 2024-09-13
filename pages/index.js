@@ -112,7 +112,8 @@ export default function Home() {
       {
         "role": "user",
         "content":
-          `确保只用P5.js代码来回答我的问题，并保证代码可以直接运行，画布大小为600px*600px;代码中不要引用图片等文件,所有你的文字回答前面都要加//注释符号，以不影响代码运行，当我提出问题时，你需要反问我一些问题来明确我的
+          `确保只用P5.js代码来回答我的问题，并保证代码可以直接运行，画布大小为600px*600px;代码中不要引用图片等文件;
+          当用到3D绘画时，需要使用WEBGL模式；所有你的文字回答前面都要加//注释符号，以不影响代码运行，当我提出问题时，你需要反问我一些问题来明确我的
           要求，然后再给出准确 的代码，如果要求没有明确将不给出p5.js代码。
        
         `
@@ -145,7 +146,7 @@ export default function Home() {
 
 
 
-    const requetOption = {
+    const requetOption = { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
