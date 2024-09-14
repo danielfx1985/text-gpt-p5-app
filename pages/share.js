@@ -60,7 +60,7 @@ export default function Share() {
         <Link href="/" className="text-blue-500 hover:underline">
           主页
         </Link>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4  bg-gray-100">
           {works.length > 0 ? (
             works.map((work) => (
               <WorkCard key={work.id} work={work} onDelete={handleDelete} />

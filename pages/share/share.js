@@ -25,7 +25,7 @@ export default function Share() {
       </Head>
       <div className="container mx-auto p-4">
         <h1 className="text-3xl font-bold mb-4">作品分享</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 bg-gray-100">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4  bg-gray-100">
           {/* 这里将循环展示作品列表 */}
           {works.map((work) => (
             <WorkCard key={work.id} work={work} />
