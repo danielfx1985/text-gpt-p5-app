@@ -25,7 +25,7 @@ export default function Share() {
       </Head>
       <div className="container mx-auto p-4">
         <h1 className="text-3xl font-bold mb-4">作品分享</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 bg-gray-100">
           {/* 这里将循环展示作品列表 */}
           {works.map((work) => (
             <WorkCard key={work.id} work={work} />
@@ -44,7 +44,7 @@ const WorkCard = ({ work }) => {
       <img src={work.screenshot} alt={work.title} className="w-full h-48 object-cover rounded-md mb-2" />
       <h2 className="text-lg font-medium">{work.title}</h2>
       <p className="text-gray-600 text-sm">作者: {work.author}</p>
-      {/* 添加链接到作品详情页 */}
+      {/* 添加链接到作品详情页 */} 
       <a href={`/work/id=${work.id}`} className="text-blue-500 hover:underline">查看作品</a>
     </div>
   );
