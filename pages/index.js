@@ -53,13 +53,13 @@ export default function Home() {
           } else {
             setlogMsg(msg => msg + '\n' + data.logMsg);
           }
-           
+
         } catch (error) {
           console.error("解析 JSON 数据出错:", error);
         }
       }
       //const data = JSON.parse(event.data);
-      
+
     };
 
     window.addEventListener("message", handler);
@@ -146,7 +146,7 @@ export default function Home() {
 
 
 
-    const requetOption = { 
+    const requetOption = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ export default function Home() {
       })
     }
     //console.log("MODEL ", MODEL);
-   //console.log("requetOption :", requetOption);
+    //console.log("requetOption :", requetOption);
     try {
       const response = await fetch('https://openai.snakecoding.club/v1/chat/completions', requetOption);
 
@@ -171,7 +171,7 @@ export default function Home() {
       const result = data.choices[0].message.content;
       const cleanedResult = result.replace(/```javascript|```/g, '').trim();
 
-     // console.log("提交按钮2:", isSubmitting);
+      // console.log("提交按钮2:", isSubmitting);
 
 
 
@@ -256,13 +256,13 @@ export default function Home() {
   };
   // 分享作品 
   const shareWork = async () => {
-   // console.log("shareWork button pushed");
+    // console.log("shareWork button pushed");
     if (author.trim() === '') { // 检查作者姓名是否为空
-    //  console.log("输入分享作者的名字！");
+      //  console.log("输入分享作者的名字！");
       setShowError(true);
       return;
     }
-   // console.log('screenshotDataURL===:', screenshotDataURL);
+    // console.log('screenshotDataURL===:', screenshotDataURL);
     try {
 
 
@@ -279,11 +279,11 @@ export default function Home() {
         }),
       };
       const response = await fetch('/api/works/', requestOption);
-     //console.log("requestOption  ", requestOption);
+      //console.log("requestOption  ", requestOption);
       if (response.ok) {
         const data = await response.json();
         alert("作品分享成功!");
-       // console.log('作品分享成功:', data);
+        // console.log('作品分享成功:', data);
         // 可以在这里添加成功提示，例如弹窗或跳转到作品页面
       } else {
         console.error('作品分享失败:', response.status);
@@ -297,7 +297,7 @@ export default function Home() {
   // New function to start a new topic
   function startNewTopic(event) {
     event.preventDefault(); // 阻止默认行为
-   // console.log("新想法按钮");
+    // console.log("新想法按钮");
     setConversationHistory([]); // Clear conversation history
     setTextInput(""); // Clear text input
     setResult("// 请在上面指令区输入你的指令，然后点“提交”"); // Reset result
@@ -305,7 +305,7 @@ export default function Home() {
     setSandboxRunning(false); // Stop sandbox if running
   }
 
-  
+
   return (
     <>
       <Head>
@@ -313,31 +313,33 @@ export default function Home() {
         <meta name="description" content="Turn text into p5.js code using GPT and display it" />
         <link rel="icon" href="/AI-aigr.svg" />
       </Head>
-      <div className="w-full p-5 flex flex-col gap-5 min-w-[320px] relative "> 
-        <header className="flex flex-col sm:flex-row justify-between items-center">
-          <div className="flex items-center gap-3">
+      <div className="w-full p-5 flex flex-col gap-5 min-w-[320px] relative ">
+         {/* <header className="flex flex-col sm:flex-row justify-between items-center bg-gradient-to-r from-pink-300 to-yellow-500 p-4 rounded-lg shadow-lg"> */}
+         <header className="flex flex-col sm:flex-row justify-between items-center p-4 rounded-lg shadow-lg">
+
+         <div className="flex items-center gap-3">
             <img src="logo-ai.png" alt="logo" className="h-16 w-16 p-1 bg-white rounded-full shadow shadow-emerald-600/30" />
-            <div className="text-gray-700 flex flex-col justify-center">
-              <h1 className="logo-title font-semibold text-xl">斯内克 AI 创意编程</h1>
-              <p className="logo-subtitle">体验AI的力量 - AI generation</p>
+            <div className="text-gray-800 flex flex-col justify-center">
+              <h1 className="logo-title font-bold">斯内克 AI 创意编程</h1>
+              <p className="logo-subtitle text-sm">体验AI的力量 - AI generation</p>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-4 mt-4 sm:mt-0">
-            <Link href="/share" className="zplb px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+            <Link href="/share" className="zplb px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300">
               作品列表
             </Link>
             <div className="flex items-center">
-              <label htmlFor="author" className="mr-2">你的名字:</label>
+              <label htmlFor="author" className="mr-2 text-lg">你的名字:</label>
               <input
                 type="text"
                 id="author"
                 value={author}
                 onChange={handleAuthorChange}
-                className="border border-gray-300 rounded-md px-2 py-1"
+                className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div className="flex items-center">
-              <button onClick={shareWork} disabled={!result || author.trim() === ''} className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50">
+              <button onClick={shareWork} disabled={!result || author.trim() === ''} className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 transition duration-300">
                 分享作品
               </button>
               {showError && (
@@ -346,7 +348,7 @@ export default function Home() {
             </div>
           </div>
         </header>
-        <div className="flex flex-col md:flex-row gap-4 w-full max-w-[1020px] justify-center items-center"> 
+        <div className="flex flex-col md:flex-row gap-4 w-full max-w-[1020px]  items-center">
           <div className="md:order-2 md:w-1/2 lg:w-1/3 flex flex-col gap-4 ">
             <RunContainer
               key="runcont-01"
@@ -408,7 +410,7 @@ export default function Home() {
       font-size: 12px; /* 设置默认字体大小 */
     }
     h1, h2, h3, h4, h5, h6 {
-      font-size: 0.2em; /* 调整标题字体大小 */
+      font-size: 1.5em; /* 调整标题字体大小 */
     }
         }
       `}</style>

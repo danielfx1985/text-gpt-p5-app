@@ -19,8 +19,9 @@
     background-color: #1eaf73;
   } */
   .logo-title{
+    font-size: 30px;
 
-    color: #1eaf73;
+    color: #30a77f;
   }
 
   /* .floating-button-exporter {
@@ -137,5 +138,5 @@
     width: 500px;
   }
   header{
-    background-color:  #fdaa66;
+    background-color:  #d1cf4b;
   }
