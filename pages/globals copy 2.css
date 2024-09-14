@@ -5,8 +5,7 @@
 @layer components {
     #__next {
         @apply w-full flex justify-center;
-        background-image: url("bg.jpg");
-        background-size: 750px 750px; 
+
         background-color: #1b2324;
         color: #ca7c15; /* 默认文本颜色 */
         /* 暗色模式下的样式 */
@@ -24,7 +23,7 @@
     }
 }
 
-@layer utilities { 
+@layer utilities {
     .bg-white {
         @apply bg-gradient-to-r from-blue-500 to-green-500; /* 自定义渐变背景 */
     }

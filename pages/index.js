@@ -346,7 +346,7 @@ export default function Home() {
             </div>
           </div>
         </header>
-        <div className="flex flex-col md:flex-row gap-4 w-full max-w-[1020px] "> 
+        <div className="flex flex-col md:flex-row gap-4 w-full max-w-[1020px] justify-center items-center"> 
           <div className="md:order-2 md:w-1/2 lg:w-1/3 flex flex-col gap-4 ">
             <RunContainer
               key="runcont-01"
