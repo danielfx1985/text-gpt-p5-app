@@ -19,7 +19,7 @@ const max_tokens = process.env.NEXT_PUBLIC_MAX_TOKENS;
 //console.log("api_url ", api_url);
 export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false); // 定义状态
-  const [result, setResult] = useState("// 请在上面指令区输入你的指令，然后点“提交”") ;
+  const [result, setResult] = useState("// 请在上面指令区输入你的指令，然后点“提交”");
   const [textInput, setTextInput] = useState("");
   const [waiting, setWaiting] = useState(false);
   const [sandboxRunning, setSandboxRunning] = useState(false);
@@ -29,11 +29,10 @@ export default function Home() {
   const [author, setAuthor] = useState(""); // 新增作者输入框状态
   const [showError, setShowError] = useState(false);
   const [screenshotDataURL, setScreenshotDataURL] = useState(null); // 添加 dataURL 状态
-  const [isQuickMode, setIsQuickMode] = useState(true); // 新增状态 来控制快速模式
 
 
   const egArray = [];
-  const MAX_HISTORY_LENGTH = 2; // 设置最大历史会话数目
+  const MAX_HISTORY_LENGTH = 8; // 设置最大历史会话数目
 
   const [exportedFilename, setExportedFilename] = useState('作品名字'); // 添加状态来存储文件名
 
@@ -113,9 +112,7 @@ export default function Home() {
       {
         "role": "user",
         "content":
-          isQuickMode ? `确保只用P5.js代码来回答我的问题，并保证代码可以直接运行，画布大小为600px*600px;代码中不要引用图片等文件;
-          当用到3D绘画时，需要使用WEBGL模式；所有你的文字回答前面都要加//注释符号，以不影响代码运行` :
-            `确保只用P5.js代码来回答我的问题，并保证代码可以直接运  行，画布大小为600px*600px;代码中不要引用图片等文件;
+          `确保只用P5.js代码来回答我的问题，并保证代码可以直接运行，画布大小为600px*600px;代码中不要引用图片等文件;
           当用到3D绘画时，需要使用WEBGL模式；所有你的文字回答前面都要加//注释符号，以不影响代码运行，当我提出问题时，你需要反问我一些问题来明确我的
           要求，然后再给出准确 的代码，如果要求没有明确将不给出p5.js代码。
        
@@ -163,19 +160,19 @@ export default function Home() {
       })
     }
     //console.log("MODEL ", MODEL);
-    console.log("requetOption :", requetOption);
+    //console.log("requetOption :", requetOption);
     try {
       const response = await fetch('https://openai.snakecoding.club/v1/chat/completions', requetOption);
 
 
-
+ 
       const data = await response.json();
       // console.log("completion===>:", data); 
       const result = data.choices[0].message.content;
       const cleanedResult = result.replace(/```javascript|```/g, '').trim();
 
       // console.log("提交按钮2:", isSubmitting);
-
+ 
 
 
 
@@ -186,7 +183,6 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      console.log("cleanedResult:  ",cleanedResult);
       // Update conversation history with the assistant's response
       const assistantMessage = { role: "assistant", content: cleanedResult };
       setConversationHistory(prev => {
@@ -211,21 +207,10 @@ export default function Home() {
   }
 
 
-  // const editorChange = useCallback((value, viewUpdate) => {
-  //   setResult(value);
-  // }, []);
   const editorChange = useCallback((value, viewUpdate) => {
     setResult(value);
-    // 更新历史会话中的最后一条 GPT 输出
-    setConversationHistory(prev => {
-      const updatedHistory = [...prev];
-      if (updatedHistory.length > 0) {
-        updatedHistory[updatedHistory.length - 1] = { role: "assistant", content: value }; // 替换最后一条
-      }
-      return updatedHistory;
-    });
   }, []);
-  
+
   function runClickPlay(event) {
     event.preventDefault();
     setSandboxRunning(true);
@@ -329,10 +314,10 @@ export default function Home() {
         <link rel="icon" href="/AI-aigr.svg" />
       </Head>
       <div className="w-full p-5 flex flex-col gap-5 min-w-[320px] relative ">
-        {/* <header className="flex flex-col sm:flex-row justify-between items-center bg-gradient-to-r from-pink-300 to-yellow-500 p-4 rounded-lg shadow-lg"> */}
-        <header className="flex flex-col sm:flex-row justify-between items-center p-4 rounded-lg shadow-lg">
+         {/* <header className="flex flex-col sm:flex-row justify-between items-center bg-gradient-to-r from-pink-300 to-yellow-500 p-4 rounded-lg shadow-lg"> */}
+         <header className="flex flex-col sm:flex-row justify-between items-center p-4 rounded-lg shadow-lg">
 
-          <div className="flex items-center gap-3">
+         <div className="flex items-center gap-3">
             <img src="logo-ai.png" alt="logo" className="h-16 w-16 p-1 bg-white rounded-full shadow shadow-emerald-600/30" />
             <div className="text-gray-800 flex flex-col justify-center">
               <h1 className="logo-title font-bold">斯内克 AI 创意编程</h1>
@@ -357,39 +342,29 @@ export default function Home() {
               <button onClick={shareWork} disabled={!result || author.trim() === ''} className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 transition duration-300">
                 分享作品
               </button>
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={isQuickMode}
-                  onChange={() => setIsQuickMode(!isQuickMode)} // 切换快速模式
-                  className="mr-2"
-                />
-                快速模式
-              </label>
               {showError && (
                 <p className="text-red-500 text-sm mt-2 xs:mt-0 xs:ml-2">请输入你的名字</p>
               )}
             </div>
           </div>
         </header>
-         
-        <div className="flex flex-col md:flex-row gap-4 w-full max-w-[3020px]  items-center">
-          <div className="md:order-2     flex flex-col gap-4 resize overflow-auto" style={{ maxWidth: '854px', maxHeight: '655px' }}>
+        <div className="flex flex-col md:flex-row gap-4 w-full max-w-[1020px]  items-center">
+          <div className="md:order-2 md:w-1/2 lg:w-1/3 flex flex-col gap-4 ">
             <RunContainer
               key="runcont-01"
               sandboxRunning={sandboxRunning}
               clickPlay={runClickPlay}
               clickStop={runClickStop}
-              result={result}     
+              result={result}
               logMsg={logMsg}
               waiting={waiting}
               onScreenshotReady={handleScreenshotReady}
             />
           </div>
-          <div className="md:order-1 left-content flex flex-col gap-4 resize overflow-auto" style={{ minWidth: '300px', minHeight: '300px', height: '649px',width: '530px'}}>
-            <TextInput 
+          <div className="md:order-1  left-content  flex flex-col gap-4">
+            <TextInput
               key="textinput-01"
-              textInput={textInput} 
+              textInput={textInput}
               onChange={textInputChange}
               waiting={waiting}
               selectVal={selVal}
@@ -412,7 +387,7 @@ export default function Home() {
             />
           </div>
         </div>
-        <p classN ame="text-gray-400 text-sm text-center mt-3">
+        <p className="text-gray-400 text-sm text-center mt-3">
           Made by <a href="https://mattelim.com" target="_blank" className="underline">Matte Lim</a>/ Modified by <a href="https://snakecoding.club" target="_blank" className="underline">Daniel</a> / AI model : {MODEL}
         </p>
       </div>

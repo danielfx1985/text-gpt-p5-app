@@ -3,16 +3,16 @@ export default function TextInput({ textInput, onChange, onSubmit, waiting, sele
  
   const handleFocus = () => {
     // 创建一个模拟的事件对象
-    const event = {
+    const event = {     
       target: {
-        value: ''
+        value: '' 
       }
     };
     onChange(event);
   };
   return (
     <div className="rounded-md border border-gray-100 shadow-md shadow-emerald-600/30 bg-white p-3">
-      <div className="flex justify-between xs:mb-2">
+      <div className="flex justify-between xs:mb-2"> 
         <h3 className="font-semibold text-gray-500">下达指令：</h3>
 
       </div>

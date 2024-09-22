@@ -12,13 +12,13 @@ export default function Editor({ result, onChange, waiting, conversationHistory,
     onFilenameChange(newFilename); 
   //  console.log("新的文件名：", newFilename); 
   };
-
-  return (
-    <div className="max-h-[25vh] overflow-scroll rounded-md border border-gray-100 shadow-md shadow-emerald-600/30 bg-white p-3" style={{ minHeight: "550px" }}>
+ 
+  return (  
+    <div className=" overflow-scroll rounded-md border border-gray-100 shadow-md shadow-emerald-600/30 bg-white p-3" style={{ minHeight: "450px" }}>
       <div className="flex justify-between items-center mb-2"> {/* 使用 Flexbox 布局 */}
         <h3 className="font-semibold text-gray-500">程序代码：</h3>
-        <div className="ml-auto"> {/* 使用 ml-auto 将组件推到右侧 */}
-          <CodeImporterExporter
+        <div className="ml-auto"> {/* 使用 ml-auto 将组件推到右侧 */}  
+          <CodeImporterExporter 
             conversationHistory={conversationHistory}
             result={result}
             textInput={textInput}

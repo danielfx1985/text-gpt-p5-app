@@ -49,13 +49,13 @@ const SandBox = forwardRef(({ running, result }, ref) => {
         没有代码在运行
       </div>
     );
-  }
+  } 
 
   return (
     <div className="w-full min-h-[500px] border border-gray-300 rounded">
       <iframe
         ref={ref} // 将 ref 传递给 iframe
-        width="800px"
+        width="600px"
         height="600px"
         srcDoc={srcdoc(result)}
         sandbox="allow-scripts"
