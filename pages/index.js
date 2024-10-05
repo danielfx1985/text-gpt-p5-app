@@ -78,8 +78,9 @@ export default function Home() {
   // 新增的 useEffect 监听快捷键
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.ctrlKey && event.key === 'm') { // 例如，按下 Ctrl + M
+      if (event.ctrlKey  && event.key === 'm') { // 例如，按下 Ctrl + M
         setShowInput(prev => !prev); // 切换输入框的显示状态
+        console.log("按下 Ctrl + M");
       }
     };
 
