@@ -30,14 +30,12 @@ export default function Home() {
   const [showError, setShowError] = useState(false);
   const [screenshotDataURL, setScreenshotDataURL] = useState(null); // 添加 dataURL 状态
   const [isQuickMode, setIsQuickMode] = useState(true); // 新增状态 来控制快速模式
-  const [systemMessage, setSystemMessage] = useState(`你是一个P5.JS创意编程教学专家，你会理解的的话并用P5.js代码来给我回应，
-    代码运行结果要生动有趣，
-    对所有代码进行详细注释.所有注释用中文;
+  const [systemMessage, setSystemMessage] = useState(`你是一个P5.JS创意编程教学专家，你会理解的的话并用P5.js代码来给我回应，对所有代码进行详细注释.所有注释用中文;
     画布大小为600px*600px;代码中不要引用图片等文件;
     我希望在生成P5.JS 动画后，在动画的第 3 帧自动保存截图。
     使用 saveCanvas('screenshot', 'png') 函数将动画保存为名为 'screenshot.png' 的文件。
     `);
-  const [showInput, setShowInput] = useState(false); // 控制输入框的显示状态
+
   const egArray = [];
   const MAX_HISTORY_LENGTH = 2; // 设置最大历史会话数目
 
@@ -75,23 +73,9 @@ export default function Home() {
     return () => window.removeEventListener("message", handler);
   }, [result, sandboxRunning]);
 
-  // 新增的 useEffect 监听快捷键
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.ctrlKey && event.key === 'm') { // 例如，按下 Ctrl + M
-        setShowInput(prev => !prev); // 切换输入框的显示状态
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-    // 清理事件监听器
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
 
 
+  
   function textInputChange(event) {
     if (event.preventDefault) {
       event.preventDefault();
@@ -128,7 +112,11 @@ export default function Home() {
       // },
       {
         "role": "system",
-        "content": systemMessage
+        "content": `你是一个P5.JS创意编程教学专家，你会理解的的话并用P5.js代码来给我回应，对所有代码进行详细注释.所有注释用中文;
+        画布大小为600px*600px;代码中不要引用图片等文件;
+        我希望在生成P5.js 动画后，在动画的第 3 帧自动保存截图。
+        使用 saveCanvas('screenshot', 'png') 函数将动画保存为名为 'screenshot.png' 的文件。
+        `
       },
       // 你是一个P5.JS创意编程教学专家，在我给你指令，你总是用P5.js代码来回答，对所有代码进行详细注释.所有注释用中文;我希望在生成P5.js 动画后，在动画的第 3 帧自动保存截图。
       //   使用 saveCanvas('screenshot', 'png') 函数将动画保存为名为 'screenshot.png' 的文件。
@@ -355,23 +343,12 @@ export default function Home() {
         <meta name="description" content="Turn text into p5.js code using GPT and display it" />
         <link rel="icon" href="/AI-aigr.svg" />
       </Head>
-
-
+      
+     
       <div className="w-full p-5 flex flex-col gap-5 min-w-[320px] relative ">
         {/* <header className="flex flex-col sm:flex-row justify-between items-center bg-gradient-to-r from-pink-300 to-yellow-500 p-4 rounded-lg shadow-lg"> */}
         <header className="flex flex-col sm:flex-row justify-between items-center p-4 rounded-lg shadow-lg">
 
-          {showInput && (
-            <div className="fixed inset-0 flex items-center justify-center z-50"> {/* 设置为固定定位，居中显示 */}
-              <textarea
-                value={systemMessage}
-                onChange={(e) => setSystemMessage(e.target.value)}
-                className="border border-gray-300 rounded-md p-2 w-1/2 h-1/2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' }} // 添加阴影效果
-                placeholder="在这里输入系统消息..."
-              />
-            </div>
-          )}
           <div className="flex items-center gap-3">
             <img src="logo-ai.png" alt="logo" className="h-16 w-16 p-1 bg-white rounded-full shadow shadow-emerald-600/30" />
             <div className="text-gray-800 flex flex-col justify-center">
@@ -414,7 +391,7 @@ export default function Home() {
         </header>
 
         <div className="flex flex-col md:flex-row gap-4 w-full max-w-[3020px]  items-center">
-
+      
           <div className="md:order-2     flex flex-col gap-4 resize overflow-auto" style={{ maxWidth: '854px', maxHeight: '655px' }}>
             <RunContainer
               key="runcont-01"
