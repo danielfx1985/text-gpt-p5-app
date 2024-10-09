@@ -45,9 +45,10 @@ export default function Home() {
 
   // 模型选项数组
   const modelOptions = [
+    { value: "gemini-1.5-pro", label: "gemini-1.5-pro" },
     { value: "gpt-4o-imini", label: "gpt-4o-imini" },
     { value: "gpt-4o", label: "gpt-4o" },
-    { value: "gemini-1.5-pro", label: "gemini-1.5-pro" },
+    
     // 添加更多模型选项
   ];
 
