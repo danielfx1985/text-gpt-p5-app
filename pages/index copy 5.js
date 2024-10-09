@@ -30,8 +30,8 @@ export default function Home() {
   const [showError, setShowError] = useState(false);
   const [screenshotDataURL, setScreenshotDataURL] = useState(null); // 添加 dataURL 状态
   const [isQuickMode, setIsQuickMode] = useState(true); // 新增状态 来控制快速模式
-  const [systemMessage, setSystemMessage] = useState(`你是一个P5.JS创意编程教学专家，你会理解我的指定并只用P5.js代码来回应，
-    代码运行结果要生动有趣，当用到3D绘画时，需要使用WEBGL模式（默认不用）；
+  const [systemMessage, setSystemMessage] = useState(`你是一个P5.JS创意编程教学专家，你会理解的的话并用P5.js代码来给我回应，
+    代码运行结果要生动有趣，
     对所有代码进行详细注释.所有注释用中文;
     画布大小为600px*600px;代码中不要引用图片等文件;
     我希望在生成P5.JS 动画后，在动画的第 3 帧自动保存截图。
@@ -40,17 +40,8 @@ export default function Home() {
   const [showInput, setShowInput] = useState(false); // 控制输入框的显示状态
   const egArray = [];
   const MAX_HISTORY_LENGTH = 2; // 设置最大历史会话数目
+
   const [exportedFilename, setExportedFilename] = useState('作品名字'); // 添加状态来存储文件名
-  const [selectedModel, setSelectedModel] = useState(MODEL); // 默认选择的模型
-
-  // 模型选项数组
-  const modelOptions = [
-    { value: "gpt-4o-imini", label: "gpt-4o-imini" },
-    { value: "gpt-4o", label: "gpt-4o" },
-    { value: "gemini-1.5-pro", label: "gemini-1.5-pro" },
-    // 添加更多模型选项
-  ];
-
 
   // 处理文件名变化
   const handleFilenameChange = (newFilename) => {
@@ -87,7 +78,7 @@ export default function Home() {
   // 新增的 useEffect 监听快捷键
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.ctrlKey && event.key === 'm') { // 例如，按下 Ctrl + M
+      if (event.ctrlKey  && event.key === 'm') { // 例如，按下 Ctrl + M
         setShowInput(prev => !prev); // 切换输入框的显示状态
         console.log("按下 Ctrl + M");
       }
@@ -193,7 +184,7 @@ export default function Home() {
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        "model": selectedModel,
+        "model": MODEL,
         "messages": messages,
         "temperature": Number(temperature),
         "max_tokens": Number(max_tokens)
@@ -463,19 +454,8 @@ export default function Home() {
             />
           </div>
         </div>
-        <p className="text-gray-400 text-sm text-center mt-3">
-          Made by <a href="https://mattelim.com" target="_blank" className="underline">Matte Lim</a>/ Modified by <a href="https://snakecoding.club" target="_blank" className="underline">Daniel</a> /
-          AI model :<select
-            value={selectedModel}
-            onChange={(e) => setSelectedModel(e.target.value)}
-            className="border border-gray-300 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {modelOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+        <p classN ame="text-gray-400 text-sm text-center mt-3">
+          Made by <a href="https://mattelim.com" target="_blank" className="underline">Matte Lim</a>/ Modified by <a href="https://snakecoding.club" target="_blank" className="underline">Daniel</a> / AI model : {MODEL}
         </p>
       </div>
 
