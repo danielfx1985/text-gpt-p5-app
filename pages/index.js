@@ -46,9 +46,10 @@ export default function Home() {
   // 模型选项数组
   const modelOptions = [
     { value: "gemini-1.5-pro", label: "gemini-1.5-pro" },
-    { value: "gpt-4o-imini", label: "gpt-4o-imini" },
+    { value: "gpt-4o-mini", label: "gpt-4o-imini" },
     { value: "gpt-4o", label: "gpt-4o" },
-    
+    { value: "gemini-1.5-flash", label: "gemini-1.5-flash" },//claude-3-5-sonnet-20240620
+    { value: "claude-3-5-sonnet-20240620", label: "claude-3-5-sonnet-20240620" },
     // 添加更多模型选项
   ];
 
