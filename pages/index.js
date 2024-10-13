@@ -39,18 +39,20 @@ export default function Home() {
     `);//画布大小为600px*600px;
   const [showInput, setShowInput] = useState(false); // 控制输入框的显示状态
   const egArray = [];
-  const MAX_HISTORY_LENGTH = 2; // 设置最大历史会话数目
+  const MAX_HISTORY_LENGTH =6; // 设置最大历史会话数目
   const [exportedFilename, setExportedFilename] = useState('作品名字'); // 添加状态来存储文件名
   const [selectedModel, setSelectedModel] = useState(MODEL); // 默认选择的模型
 
   // 模型选项数组
   const modelOptions = [
     { value: "gemini-1.5-pro", label: "gemini-1.5-pro" },
-    { value: "gpt-4o-mini", label: "gpt-4o-imini" },
-    { value: "gpt-4o", label: "gpt-4o" },
-    { value: "gemini-1.5-flash", label: "gemini-1.5-flash" },//claude-3-5-sonnet-20240620
     { value: "claude-3-5-sonnet-20240620", label: "claude-3-5-sonnet-20240620" },
-    // 添加更多模型选项
+ 
+    { value: "gpt-4o-mini", label: "gpt-4o-mini" },
+    { value: "gpt-4o", label: "gpt-4o" },
+    // { value: "gemini-1.5-flash", label: "gemini-1.5-flash" },//claude-3-5-sonnet-20240620  claude-3-haiku-20240307
+    //    { value: "claude-3-haiku-20240307", label: "claude-3-haiku-20240307" },
+    // // 添加更多模型选项
   ];
 
 
@@ -124,7 +126,16 @@ export default function Home() {
     //console.log("Waiting:", waiting);
     //console.log("提交按钮:", isSubmitting);
     // Update conversation history with the user's input
-    const userMessage = { role: "user", content: textInput };
+
+    let plusUserMessage=isQuickMode ? ` 
+    //所有你的文字回答前面都要加//注释符号，以不影响代码运行` :
+      ` 所有你的文字回答前面都要加//注释符号，以不影响代码运行
+      ，当我提出问题时，你需要反问我一些问题来明确我的要求，然后再给出准确的代码，如果要求没有明确将不给出p5.js代码。
+ 
+  `
+    let userContent=textInput+plusUserMessage;
+  console.log("userContent:",userContent,"   textInput:",textInput);
+    const userMessage = { role: "user", content: userContent };
     const newConversation = [...conversationHistory, userMessage];
     // 限制历史会话数目
     if (newConversation.length > MAX_HISTORY_LENGTH) {
@@ -139,6 +150,7 @@ export default function Home() {
       //   使用 saveCanvas('screenshot', 'png') 函数将动画保存为名为 'screenshot.png' 的文件。
       //   `
       // },
+      
       {
         "role": "system",
         "content": systemMessage
@@ -146,16 +158,19 @@ export default function Home() {
       // 你是一个P5.JS创意编程教学专家，在我给你指令，你总是用P5.js代码来回答，对所有代码进行详细注释.所有注释用中文;我希望在生成P5.js 动画后，在动画的第 3 帧自动保存截图。
       //   使用 saveCanvas('screenshot', 'png') 函数将动画保存为名为 'screenshot.png' 的文件。
       ...newConversation, // 将历史对话添加到 messages 数组中
-      {
-        "role": "user",
-        "content":
-          isQuickMode ? ` 
-          所有你的文字回答前面都要加//注释符号，以不影响代码运行` :
-            ` 所有你的文字回答前面都要加//注释符号，以不影响代码运行
-            ，当我提出问题时，你需要反问我一些问题来明确我的要求，然后再给出准确的代码，如果要求没有明确将不给出p5.js代码。
+
+      // {
+      //   "role": "user",
+      //   "content":
+      //     isQuickMode ? ` 
+      //     所有你的文字回答前面都要加//注释符号，以不影响代码运行` :
+      //       ` 所有你的文字回答前面都要加//注释符号，以不影响代码运行
+      //       ，当我提出问题时，你需要反问我一些问题来明确我的要求，然后再给出准确的代码，如果要求没有明确将不给出p5.js代码。
        
-        `//当用到3D绘画时，需要使用WEBGL模式（默认不用）；
-      }
+      //   `//当用到3D绘画时，需要使用WEBGL模式（默认不用）；
+      // }
+
+
       // 确保只用P5.js代码来回答我的问题，并保证代码可以直接运行，画布大小为600px*600px;代码中不要引用图片等文件;
       //     当用到3D绘画时，需要使用WEBGL模式（默认不用）；所有你的文字回答前面都要加//注释符号，以不影响代码运行` :
       //       `确保只用P5.js代码来回答我的问题，并保证代码可以直接运  行，画布大小为600px*600px;代码中不要引用图片等文件;
