@@ -39,7 +39,7 @@ export default function Home() {
     `);//画布大小为600px*600px;
   const [showInput, setShowInput] = useState(false); // 控制输入框的显示状态
   const egArray = [];
-  const MAX_HISTORY_LENGTH =6; // 设置最大历史会话数目
+  const MAX_HISTORY_LENGTH =150; // 设置最大历史会话数目
   const [exportedFilename, setExportedFilename] = useState('作品名字'); // 添加状态来存储文件名
   const [selectedModel, setSelectedModel] = useState(MODEL); // 默认选择的模型
 
