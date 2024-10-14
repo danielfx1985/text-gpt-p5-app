@@ -39,7 +39,7 @@ export default function Home() {
     `);//画布大小为600px*600px;
   const [showInput, setShowInput] = useState(false); // 控制输入框的显示状态
   const egArray = [];
-  const MAX_HISTORY_LENGTH =2; // 设置最大历史会话数目
+  const MAX_HISTORY_LENGTH =150; // 设置最大历史会话数目
   const [exportedFilename, setExportedFilename] = useState('作品名字'); // 添加状态来存储文件名
   const [selectedModel, setSelectedModel] = useState(MODEL); // 默认选择的模型
 
@@ -137,28 +137,11 @@ export default function Home() {
   console.log("userContent:",userContent,"   textInput:",textInput);
     const userMessage = { role: "user", content: userContent };
     const newConversation = [...conversationHistory, userMessage];
-   // 限制历史会话数目
-if (newConversation.length > MAX_HISTORY_LENGTH * 2) {
-  // 计算需要删除的会话组数
-  const excessGroups = Math.ceil((newConversation.length - MAX_HISTORY_LENGTH * 2) / 2);
-  
-  // 删除旧的会话组，保留最新的 MAX_HISTORY_LENGTH 组会话
-  newConversation.splice(0, excessGroups * 2);
-}
-
-// 确保历史记录始终以 user 消息开头
-if (newConversation.length > 0 && newConversation[0].role !== "user") {
-  newConversation.shift();
-}
-
-// 如果最后一条消息是 user，且没有对应的 assistant 回复，保留它
-if (newConversation.length % 2 !== 0) {
-  const lastMessage = newConversation.pop();
-  setConversationHistory(newConversation);
-  newConversation.push(lastMessage);
-}
-
-setConversationHistory(newConversation);
+    // 限制历史会话数目
+    if (newConversation.length > MAX_HISTORY_LENGTH) {
+      newConversation.splice(0, newConversation.length - MAX_HISTORY_LENGTH); // 保留最新的会话
+    }
+    setConversationHistory(newConversation);
     console.log("newConversation:", newConversation);
     const messages = [
       // {
